@@ -1,41 +1,40 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import { CiShoppingCart } from "react-icons/ci";
+import '../App.css';
+import { useSelector } from 'react-redux';
+import { CartReducerInitialState } from '../redux/reducer/cartReducer';
 import { Link } from 'react-router-dom';
+// import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function Header() {
-    const test = [
-        {
-            link: '/',
-            name: 'Home'
-        },
-        {
-            link: '/cart',
-            name: 'Cart'
-        },
-        {
-            link: '/login',
-            name: 'Login'
-        }
-    ];
+
+    const cartData = useSelector((state: { cartReducer: CartReducerInitialState }) => state.cartReducer)
 
     return (
-        <Navbar expand="lg" className="bg-body-tertiary">
+        <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary fixed-top">
             <Container>
-                <Navbar.Brand href="/">Router V6</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
+                <Navbar.Brand>Shopping</Navbar.Brand>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
-                        {test.map((item, index) => (
-                            item.name !== 'Login' ? (
-                                <Link key={index} className='nav-link' to={item.link}>{item.name}</Link>
-                            ) : (
-                                <NavDropdown key={index} title="Setting" id="basic-nav-dropdown">
-                                    <NavDropdown.Item href={item.link}>{item.name}</NavDropdown.Item>
-                                </NavDropdown>
-                            )
-                        ))}
+                        <Link className='nav-link' to="/">Home</Link>
+                        <Link className='nav-link' to="/setting">Setting</Link>
+                        {/* <NavDropdown title="Dropdown" id="collapsible-nav-dropdown">
+                            <NavDropdown.Item to="#action/3.1">Action</NavDropdown.Item>
+                            <NavDropdown.Item to="#action/3.2">
+                                Another action
+                            </NavDropdown.Item>
+                            <NavDropdown.Item to="#action/3.3">Something</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item to="#action/3.4">
+                                Separated link
+                            </NavDropdown.Item>
+                        </NavDropdown> */}
+                    </Nav>
+                    <Nav>
+                        <Link className='nav-link' to="/cart"><CiShoppingCart className='cart-icon' />({cartData.cartItems.length})</Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

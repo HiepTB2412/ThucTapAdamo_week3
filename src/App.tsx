@@ -9,6 +9,7 @@ const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
 const Header = lazy(() => import("./components/Header"));
 const Cart = lazy(() => import("./pages/Cart"));
+const Order = lazy(() => import("./pages/Order"));
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/cart' element={<Cart />} />
+          <Route path='/setting' element={<Order />} />
         </Routes>
       </Suspense>
     </Router>
